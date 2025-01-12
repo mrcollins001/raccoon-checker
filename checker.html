@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Whitelist Checker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+            background-image: url('./raccon.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            min-height: 100vh;
+        }
+        .container {
+            margin-top: 50px;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            border-radius: 15px;
+            padding: 2rem;
+        }
+        input {
+            padding: 10px;
+            width: 400px;
+            margin-bottom: 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            border-radius: 5px;
+        }
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #ff3366;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            background-color: #ff4477;
+            transform: scale(1.05);
+        }
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        h1 {
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>ARE YOU A VERIFIED RACCON?</h1>
+        <p style="margin-bottom: 20px;">Check your eligibility for Racconlist (Phase 1) or FCFS (Phase 2)</p>
+        <input type="text" id="walletAddress" placeholder="Enter your wallet address (0x...)">
+        <br>
+        <button onclick="checkWallet()">Check Eligibility</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        // Separate arrays for different phases
+        const racconlistAddresses = [
+            '0x4411ebfbaf3c0411e95f29e3b7cf43a8d3cdf7b4', // Phase 1 (Racconlist) address - stored in lowercase
+            '0x456...'  // Keeping placeholder for additional addresses
+        ];
+
+        const fcfsAddresses = [
+            '0x2bcc78a66d785ca6de2612945be096763947aed7', // Phase 2 (FCFS) address
+            '0x012...'  // Keeping placeholder for additional addresses
+        ];
+
+        function checkWallet() {
+            const walletInput = document.getElementById('walletAddress').value.toLowerCase(); // Convert input to lowercase
+            const resultDiv = document.getElementById('result');
+
+            if (!walletInput.startsWith('0x')) {
+                resultDiv.style.color = 'red';
+                resultDiv.textContent = 'Please enter a valid wallet address starting with 0x';
+                return;
+            }
+
+            // Check which phase the wallet belongs to
+            if (racconlistAddresses.includes(walletInput)) {
+                resultDiv.style.color = '#00ff00';
+                resultDiv.textContent = '🎉 Congratulations! You are in RACCONLIST (Phase 1)! 🦝';
+            } else if (fcfsAddresses.includes(walletInput)) {
+                resultDiv.style.color = '#00ff00';
+                resultDiv.textContent = '🎉 Congratulations! You are in FCFS (Phase 2)! 🦝';
+            } else {
+                resultDiv.style.color = 'red';
+                resultDiv.textContent = '❌ Sorry, this wallet is not whitelisted for any phase.';
+            }
+        }
+    </script>
+</body>
+</html>
